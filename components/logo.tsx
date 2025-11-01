@@ -1,22 +1,27 @@
+"use client"
+
 import Link from "next/link"
+import Image from "next/image"
 
 export function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-      <svg
-        width="40"
-        height="40"
-        viewBox="0 0 40 40"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="text-primary"
-      >
-        <circle cx="20" cy="20" r="18" fill="currentColor" />
-        <path d="M20 8L23.5 15.5L31 16.5L25.5 22L27 29.5L20 25.5L13 29.5L14.5 22L9 16.5L16.5 15.5L20 8Z" fill="white" />
-        <circle cx="20" cy="20" r="6" fill="white" />
-        <circle cx="20" cy="20" r="3" fill="currentColor" />
-      </svg>
-      <span className="text-2xl font-bold text-foreground">Awake Gum</span>
+    <Link href="/" className="flex items-center gap-3 group">
+      <div className="relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-pink-200 to-purple-200 rounded-full blur-md opacity-0 group-hover:opacity-60 transition-opacity duration-300"></div>
+        <Image
+          src="/awake-gum-icon.png"
+          alt="Awake Gum Logo"
+          width={64}
+          height={64}
+          className="rounded-full relative z-10 group-hover:scale-110 transition-transform duration-300"
+        />
+      </div>
+      <div className="flex flex-col">
+        <span className="text-4xl font-black text-foreground group-hover:text-primary transition-colors duration-300 leading-none">
+          Awake
+        </span>
+        <span className="text-sm font-bold tracking-widest text-primary uppercase">Gum</span>
+      </div>
     </Link>
   )
 }
