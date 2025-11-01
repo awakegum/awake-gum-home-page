@@ -24,8 +24,6 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <ThemeScript />
-        {/* Favicon files */}
-        <link rel="icon" href="/awake-gum-icon.png" />
       </head>
       <body className={`font-sans antialiased`}>
         {children}
