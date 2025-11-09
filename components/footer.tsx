@@ -12,7 +12,7 @@ export function Footer() {
             <p className="mt-4 text-muted-foreground max-w-sm leading-relaxed">{footerContent.description}</p>
             <div className="flex gap-4 mt-6">
               <a
-                href="https://www.instagram.com/awake_gum/"
+                href={footerContent.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-muted hover:bg-primary hover:text-primary-foreground transition-colors flex items-center justify-center"
