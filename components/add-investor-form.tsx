@@ -24,18 +24,22 @@ export function AddInvestorForm({ onInvestorAdded }: AddInvestorFormProps) {
     setLoading(true)
 
     try {
+      console.log("[v0] Attempting to add investor:", { name, amount })
       const supabase = getSupabaseClient()
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from("investors")
         .insert([{ investor: name, invested_money: Number.parseInt(amount) }])
 
+      console.log("[v0] Response:", { data, error })
       if (error) throw error
 
       setName("")
       setAmount("")
       onInvestorAdded()
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to add investor")
+      const errorMessage = err instanceof Error ? err.message : "Failed to add investor"
+      console.log("[v0] Error caught:", errorMessage)
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }
@@ -44,7 +48,12 @@ export function AddInvestorForm({ onInvestorAdded }: AddInvestorFormProps) {
   return (
     <Card className="p-6 bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
       <h3 className="text-lg font-bold text-primary mb-4">Add New Investor</h3>
-      {error && <p className="text-destructive text-sm mb-4 p-2 bg-destructive/10 rounded">{error}</p>}
+      {error && (
+        <div className="text-destructive text-sm mb-4 p-3 bg-destructive/10 rounded border border-destructive/20">
+          <p className="font-semibold mb-1">Error:</p>
+          <p className="break-words">{error}</p>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">

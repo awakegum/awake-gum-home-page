@@ -25,9 +25,13 @@ export function AddExpenseForm({ onExpenseAdded }: AddExpenseFormProps) {
     setLoading(true)
 
     try {
+      console.log("[v0] Attempting to add expense:", { name, description, price })
       const supabase = getSupabaseClient()
-      const { error } = await supabase.from("expenses").insert([{ name, description, price: Number.parseFloat(price) }])
+      const { data, error } = await supabase
+        .from("expenses")
+        .insert([{ name, description, price: Number.parseFloat(price) }])
 
+      console.log("[v0] Response:", { data, error })
       if (error) throw error
 
       setName("")
@@ -35,7 +39,9 @@ export function AddExpenseForm({ onExpenseAdded }: AddExpenseFormProps) {
       setPrice("")
       onExpenseAdded()
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to add expense")
+      const errorMessage = err instanceof Error ? err.message : "Failed to add expense"
+      console.log("[v0] Error caught:", errorMessage)
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }
@@ -44,7 +50,12 @@ export function AddExpenseForm({ onExpenseAdded }: AddExpenseFormProps) {
   return (
     <Card className="p-6 bg-gradient-to-br from-destructive/5 to-destructive/10 border-destructive/20">
       <h3 className="text-lg font-bold text-destructive mb-4">Add New Expense</h3>
-      {error && <p className="text-destructive text-sm mb-4 p-2 bg-destructive/10 rounded">{error}</p>}
+      {error && (
+        <div className="text-destructive text-sm mb-4 p-3 bg-destructive/10 rounded border border-destructive/20">
+          <p className="font-semibold mb-1">Error:</p>
+          <p className="break-words">{error}</p>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
