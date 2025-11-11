@@ -24,7 +24,7 @@ export default function InvestorsPage() {
   return (
     <main className="min-h-screen flex flex-col">
       <Header />
-      <div className="flex-1">
+      <div className="flex-1 pt-32 sm:pt-36">
         <section className="py-12 md:py-16 px-4 md:px-6 lg:px-8 max-w-6xl mx-auto space-y-12">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold mb-2">Financial Overview</h1>
